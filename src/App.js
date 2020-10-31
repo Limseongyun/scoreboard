@@ -58,12 +58,22 @@ class App extends React.Component{
 
       //id를 제외한 상태를 업데이트해야한다 .predicate : 판별한다 테스트 한다
       const players = prevState.players.filter((player)=>player.id !== id);
-      return { players:players}
+      //short hand property : key, value 가 같으면 한쪽 생략
+      return { players}
 
     })
   }
   handleChangeScore = (delta,e,id) =>{
     console.log('handleChangeScore',delta,id);
+    this.setState((prevState)=>{
+      const players = [ ...prevState.players];
+      players.forEach(player =>{
+        if(player.id === id){
+          player.score +=delta;
+        }
+      })
+      return {players : players};
+    })
 
   }
 
