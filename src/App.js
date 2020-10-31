@@ -2,13 +2,14 @@ import './App.css';
 import React from "react";
 import {Header} from "./components/Header";
 import Player from "./components/Player";
+import AddPlayerForm from "./components/AddPlayerForm";
 
-const players = [
-  {name: 'LDK',score :0, id: 1},
-  {name: 'HONG',score :0,  id: 2},
-  {name: 'KIM',score :0,  id: 3},
-  {name: 'PARK',score :0,  id: 4},
-];
+// const players = [
+//   {name: 'LDK',score :0, id: 1},
+//   {name: 'HONG',score :0,  id: 2},
+//   {name: 'KIM',score :0,  id: 3},
+//   {name: 'PARK',score :0,  id: 4},
+// ];
 //펑션 컴포넌트가 되는 조건
 //첫글자는 대문자
 //react element를 리턴
@@ -80,7 +81,7 @@ class App extends React.Component{
   render() {
     return (
       <div className="scoreboard">
-        <Header title="Scoreboard" players={players.length}></Header>
+        <Header title="Scoreboard" players={this.state.players}></Header>
         {
           this.state.players.map((player) => {
             return (
@@ -89,7 +90,7 @@ class App extends React.Component{
             )
           })
         }
-
+        <AddPlayerForm/>
       </div>
     )
   }
