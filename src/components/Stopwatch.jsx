@@ -20,7 +20,7 @@ function Stopwatch(props){
     }
     //리턴하면 사라지기전에 실행
   },[]);//배열이 없으면 처음 한번만실행
-  
+  //렌더링이 다시 일어난다 체크 해보자
 
   const getButton = () =>{
     if(isRunning){
