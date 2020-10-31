@@ -1,8 +1,10 @@
 import './App.css';
 import React from "react";
 import {Header} from "./components/Header";
-import Player from "./components/Player";
+//import Player from "./components/Player";
 import AddPlayerForm from "./components/AddPlayerForm";
+import CustomPlayer from "./components/CustomPlayer";
+import _ from 'lodash';
 
 // const players = [
 //   {name: 'LDK',score :0, id: 1},
@@ -92,6 +94,11 @@ class App extends React.Component{
     })
 
   }
+  //가장 높은 score를 리턴
+  getHighScore = () =>{
+    const  maxObj = _.maxBy(this.state.players,'score');
+    return maxObj.score ? maxObj.score : null;
+  }
   render() {
     return (
       <div className="scoreboard">
@@ -100,7 +107,7 @@ class App extends React.Component{
           this.state.players.map((player) => {
             return (
               //반복문에선 키를 넣어야 한다
-              <Player name={player.name} changeScore ={this.handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={this.handleRemovePlayer} ></Player>
+              <CustomPlayer isHighScore={player.score === this.getHighScore()} name={player.name} changeScore ={this.handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={this.handleRemovePlayer} ></CustomPlayer>
             )
           })
         }

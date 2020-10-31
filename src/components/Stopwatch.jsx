@@ -3,12 +3,22 @@ import React from "react";
 class Stopwatch extends React.Component{
   tickRef;
   state = {
-    isRunning:false
+    isRunning:false,
+    timer : 0
+  }
+  tick =() =>{
+    if(this.state.isRunning){
+      this.setState(
+        {
+          timer:this.state.timer +1
+        }
+      )
+    }
   }
   //돔이 렌더링 된 직후에 호출
   //REST API 호출, 서드 파티 라이브러리 로딩
   componentDidMount() {
-    this.tickRef = setInterval(()=>{},1000);
+    this.tickRef = setInterval(this.tick,1000);
   }
   getButton = () =>{
     if(this.state.isRunning){
@@ -25,7 +35,7 @@ class Stopwatch extends React.Component{
     return (
       <div className="stopwatch">
         <h2>Stopwatch</h2>
-        <span className="stopwatch-time">0</span>
+        <span className="stopwatch-time">{this.state.timer}</span>
         {
           this.getButton()
         }
