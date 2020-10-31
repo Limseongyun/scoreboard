@@ -77,6 +77,8 @@ function App(props) {
     const aplayers = players.filter((player)=>player.id !== id);
     //short hand property : key, value 가 같으면 한쪽 생략
     setPlayers(aplayers); //비동기로 실행된다.
+
+    console.log(aplayers);
   }
 
   const  handleChangeScore = (delta,e,id) =>{
