@@ -43,6 +43,7 @@ import AddPlayerForm from "./components/AddPlayerForm";
     </div>
   )
 }*/
+let maxId =4;
 class App extends React.Component{
   state ={
     players :[
@@ -78,8 +79,17 @@ class App extends React.Component{
 
   }
 
-  handleAddPlayer =()=>{
-    console.log('addPlayer');
+  handleAddPlayer =(name)=>{
+    console.log('addPlayer',name);
+    this.setState(prevState=>{
+      const players = [...prevState.players];
+      //추가하는 로직
+      //....
+      players.push(
+        {name:name,score:0,id:++maxId}
+      )
+      return {players};
+    })
 
   }
   render() {
