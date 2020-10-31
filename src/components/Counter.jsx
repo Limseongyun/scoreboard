@@ -8,9 +8,7 @@ class Counter extends React.Component {
      }
    }*/
 
-  state = {
-    score: 10
-  }
+
   handleScore = (delta, e) => {
     console.log(e)
     console.log(this);
@@ -31,12 +29,12 @@ class Counter extends React.Component {
     return (
       <div className="counter">
         <button className="counter-action decrement" onClick={(e) => {
-          this.handleScore(-1, e)
+          this.props.changeScore(-1, e,this.props.id)
         }}>
           -
         </button>
-        <span className="score">{this.state.score}</span>
-        <button className="counter-action increment" onClick={(e) => this.handleScore(1, e)}>
+        <span className="score">{this.props.score}</span>
+        <button className="counter-action increment" onClick={(e) => this.props.changeScore(1, e,this.props.id)}>
           +
         </button>
       </div>

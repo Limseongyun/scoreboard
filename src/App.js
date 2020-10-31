@@ -4,10 +4,10 @@ import {Header} from "./components/Header";
 import Player from "./components/Player";
 
 const players = [
-  {name: 'LDK', score: 30, id: 1},
-  {name: 'HONG', score: 40, id: 2},
-  {name: 'KIM', score: 50, id: 3},
-  {name: 'PARK', score: 60, id: 4},
+  {name: 'LDK',score :0, id: 1},
+  {name: 'HONG',score :0,  id: 2},
+  {name: 'KIM',score :0,  id: 3},
+  {name: 'PARK',score :0,  id: 4},
 ];
 //펑션 컴포넌트가 되는 조건
 //첫글자는 대문자
@@ -62,6 +62,10 @@ class App extends React.Component{
 
     })
   }
+  handleChangeScore = (delta,e,id) =>{
+    console.log('handleChangeScore',delta,id);
+
+  }
 
   render() {
     return (
@@ -71,7 +75,7 @@ class App extends React.Component{
           this.state.players.map((player) => {
             return (
               //반복문에선 키를 넣어야 한다
-              <Player name={player.name}  score={player.score} key ={player.id} id={player.id} removePlayer={this.handleRemovePlayer} ></Player>
+              <Player name={player.name} changeScore ={this.handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={this.handleRemovePlayer} ></Player>
             )
           })
         }
