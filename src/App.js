@@ -1,6 +1,7 @@
 import './App.css';
 import React from "react";
-import Header from "./components/Header";
+import {Header} from "./components/Header";
+import Player from "./components/Player";
 
 const players = [
   {name: 'LDK', score: 30, id: 1},
@@ -13,61 +14,19 @@ const players = [
 //react element를 리턴
 
 
-let Player = (props) => {
-  return (
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={(e) => props.removePlayer(props.id)}>x</button>
-      </span>
-      <span className="player-name">{props.name}</span>
-      <Counter score={props.score}></Counter>
-    </div>
-  );
-}
+// let Player = (props) => {
+//   return (
+//     <div className="player">
+//       <span className="player-name">
+//         <button className="remove-player" onClick={(e) => props.removePlayer(props.id)}>x</button>
+//       </span>
+//       <span className="player-name">{props.name}</span>
+//       <Counter score={props.score}></Counter>
+//     </div>
+//   );
+// }
 
-class Counter extends React.Component {
-  /* constructor() {
-     super();
-     this.state ={
-       score : 10
-     }
-   }*/
 
-  state = {
-    score: 10
-  }
-  handleScore = (delta, e) => {
-    console.log(e)
-    console.log(this);
-    // this.state.score += 1;
-    /*
-    * this.setState({
-      score : this.state.score += 1
-    });
-    * */
-    this.setState(prevState => {
-      return {
-        score: prevState.score + delta
-      }
-    });
-  }
-
-  render() {
-    return (
-      <div className="counter">
-        <button className="counter-action decrement" onClick={(e) => {
-          this.handleScore(-1, e)
-        }}>
-          -
-        </button>
-        <span className="score">{this.state.score}</span>
-        <button className="counter-action increment" onClick={(e) => this.handleScore(1, e)}>
-          +
-        </button>
-      </div>
-    )
-  }
-}
 
 
 /*let Counter = (props) =>{

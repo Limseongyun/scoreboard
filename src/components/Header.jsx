@@ -1,7 +1,7 @@
 
 import React from "react";
 // eslint-disable-next-line no-undef
-let Header = ({title, players} = props) => {
+export let Header = ({title, players} = props) => {
   // console.log(props)
   return (
     <header className="header">
@@ -10,5 +10,3 @@ let Header = ({title, players} = props) => {
     </header>
   );
 }
-
-export default Header;
