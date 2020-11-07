@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 function Stopwatch(props){
   let tickRef;
   const [isRunning,setIsRunning] = useState(false);
   const [timer,setTimer] = useState(0);
 
+
+  const refIsRunning = useRef(false);
+
   
   
   const tick =() =>{
-    if(isRunning){
-      setTimer(timer+1)
+    console.log(refIsRunning.current,timer);
+    if(refIsRunning.current){
+      setTimer(timer => timer+1)
     }
   }
   
@@ -24,10 +28,12 @@ function Stopwatch(props){
 
   const getButton = () =>{
     if(isRunning){
+      refIsRunning.current = true;
       return (
         <button onClick={()=>{setIsRunning(!isRunning)}}>stop</button>
       )
     } else {
+      refIsRunning.current = false;
       return (
         <button onClick={()=>{setIsRunning(!isRunning)}}>start</button>
       )
