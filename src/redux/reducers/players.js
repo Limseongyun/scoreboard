@@ -1,3 +1,5 @@
+import {REMOVE_PLAYER} from "../action_types";
+
 const initailPlayers ={
   players : [
     {name: 'LDK', score: 30, id: 1},
@@ -7,9 +9,12 @@ const initailPlayers ={
   ]
 };
 
+
 export const playerReducer = (state= initailPlayers,action)=>{
-  if(action.type ==='updatePlayer'){
-    return action.payload;
+  switch (action.type){
+    case REMOVE_PLAYER:
+      const  players = state.players.filter((player) => player.id !== action.id);
+      return {...state,players: players}
   }
   return state;
 }

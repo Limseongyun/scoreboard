@@ -1,11 +1,16 @@
 import React from 'react';
 import Counter from "./Counter";
+import {connect, useDispatch} from "react-redux";
+import {removePlayer} from "../redux/actions";
 
-function Player({score, removePlayer, name, id, changeScore,children}) {
+function Player({score, name, id, changeScore,children}) {
+
+  const dispatch = useDispatch();
+
   return (
     <div className="player">
       <span className="player-name">
-        <button className="remove-player" onClick={(e) => removePlayer(id)}>x</button>
+        <button className="remove-player" onClick={(e) => dispatch(removePlayer(id))}>x</button>
         {children}
         {name}
       </span>
@@ -14,5 +19,11 @@ function Player({score, removePlayer, name, id, changeScore,children}) {
     </div>
   );
 }
-
+//dispatch
+//(액션을 디스패치하는)펑션을 props로 매핑
+// const mapActionToProps = (dispatch) => ({
+//   //왼쪽은 props, 오른쪽은 펑션
+//   removePlayer : (id)=>dispatch(removePlayer(id))
+// })
+// export default connect(null,mapActionToProps)(Player);
 export default Player;

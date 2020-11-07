@@ -6,6 +6,7 @@ import AddPlayerForm from "./components/AddPlayerForm";
 import CustomPlayer from "./components/CustomPlayer";
 import _ from 'lodash';
 import {connect, Provider, useSelector} from "react-redux";
+import {removePlayer} from "./redux/actions";
 
 // const players = [
 //   {name: 'LDK',score :0, id: 1},
@@ -51,6 +52,7 @@ let maxId =4;
 
 
 function App() {
+  //redux hook
   const players = useSelector(state => state.player.players);
 
   const handleAddPlayer =(name)=>{
@@ -63,20 +65,17 @@ function App() {
         {name:name,score:0,id:++maxId}
       )
     // setPlayers(aplayers);
-
-
-
   }
-  const  handleRemovePlayer = (id) =>{
-    console.log('handleRemovePlayer',id);
-    //로직작성
-    //id를 제외한 상태를 업데이트해야한다 .predicate : 판별한다 테스트 한다
-    const aplayers = players.filter((player)=>player.id !== id);
-    //short hand property : key, value 가 같으면 한쪽 생략
-    // setPlayers(aplayers); //비동기로 실행된다.
-
-    console.log(aplayers);
-  }
+  // const  handleRemovePlayer = (id) =>{
+  //   console.log('handleRemovePlayer',id);
+  //   //로직작성
+  //   //id를 제외한 상태를 업데이트해야한다 .predicate : 판별한다 테스트 한다
+  //   const aplayers = players.filter((player)=>player.id !== id);
+  //   //short hand property : key, value 가 같으면 한쪽 생략
+  //   // setPlayers(aplayers); //비동기로 실행된다.
+  //
+  //   console.log(aplayers);
+  // }
 
   const  handleChangeScore = (delta,e,id) =>{
     console.log('handleChangeScore',delta,id);
@@ -99,7 +98,7 @@ function App() {
           players.map((player) => {
             return (
               //반복문에선 키를 넣어야 한다
-              <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} changeScore ={handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={handleRemovePlayer} ></CustomPlayer>
+              <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} changeScore ={handleChangeScore}  score={player.score} key ={player.id} id={player.id}  ></CustomPlayer>
             )
           })
         }
@@ -111,14 +110,14 @@ function App() {
 
 //구독
 //store의 state를 props로 매핑
-const mapStateToProps = (state) => ({
-  //왼쪽은 props, 오른쪽은 store state
-  players : state.player.players,
-});
+// const mapStateToProps = (state) => ({
+//   //왼쪽은 props, 오른쪽은 store state
+//   players : state.player.players,
+// });
 
 
-export default connect(mapStateToProps)(App);
-// export default App;
+// export default connect(mapStateToProps)(App)
+export default App;
 
 
 // class App extends React.Component{
