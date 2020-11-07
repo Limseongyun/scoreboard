@@ -1,4 +1,4 @@
-import {REMOVE_PLAYER} from "../action_types";
+import {CHANGE_SCORE, REMOVE_PLAYER} from "../action_types";
 
 const initailPlayers ={
   players : [
@@ -11,10 +11,21 @@ const initailPlayers ={
 
 
 export const playerReducer = (state= initailPlayers,action)=>{
+  let players;
+
   switch (action.type){
     case REMOVE_PLAYER:
-      const  players = state.players.filter((player) => player.id !== action.id);
-      return {...state,players: players}
+      players = state.players.filter((player) => player.id !== action.id);
+      return {...state, players: players}
+    case CHANGE_SCORE:
+      console.log("asdf")
+      players = [...state.players];
+      players.forEach(player => {
+        if(player.id === action.id){
+          player.score += action.delta
+        }
+      })
+      return {...state, players: players}
   }
   return state;
 }

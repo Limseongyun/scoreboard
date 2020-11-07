@@ -1,6 +1,6 @@
 import React from 'react';
 import Counter from "./Counter";
-import {connect, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {removePlayer} from "../redux/actions";
 
 function Player({score, name, id, changeScore,children}) {
@@ -15,7 +15,7 @@ function Player({score, name, id, changeScore,children}) {
         {name}
       </span>
 
-      <Counter id={id} score={score} changeScore={changeScore}></Counter>
+      <Counter id={id} score={score}></Counter>
     </div>
   );
 }

@@ -77,16 +77,16 @@ function App() {
   //   console.log(aplayers);
   // }
 
-  const  handleChangeScore = (delta,e,id) =>{
-    console.log('handleChangeScore',delta,id);
-      const newPlayers = [ ...players];
-    newPlayers.forEach(player =>{
-        if(player.id === id){
-          player.score +=delta;
-        }
-      })
-    // setPlayers(newPlayers);
-  }
+  // const  handleChangeScore = (delta,e,id) =>{
+  //   console.log('handleChangeScore',delta,id);
+  //     const newPlayers = [ ...players];
+  //   newPlayers.forEach(player =>{
+  //       if(player.id === id){
+  //         player.score +=delta;
+  //       }
+  //     })
+  //   // setPlayers(newPlayers);
+  // }
   const getHighScore = () =>{
     const  maxObj = _.maxBy(players,'score');
     return maxObj.score ? maxObj.score : null;
@@ -98,7 +98,7 @@ function App() {
           players.map((player) => {
             return (
               //반복문에선 키를 넣어야 한다
-              <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} changeScore ={handleChangeScore}  score={player.score} key ={player.id} id={player.id}  ></CustomPlayer>
+              <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} score={player.score} key ={player.id} id={player.id}  ></CustomPlayer>
             )
           })
         }
