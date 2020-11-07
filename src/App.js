@@ -5,7 +5,7 @@ import {Header} from "./components/Header";
 import AddPlayerForm from "./components/AddPlayerForm";
 import CustomPlayer from "./components/CustomPlayer";
 import _ from 'lodash';
-import {connect, Provider} from "react-redux";
+import {connect, Provider, useSelector} from "react-redux";
 
 // const players = [
 //   {name: 'LDK',score :0, id: 1},
@@ -50,12 +50,13 @@ let maxId =4;
 
 
 
-function App(props) {
+function App() {
+  const players = useSelector(state => state.player.players);
 
   const handleAddPlayer =(name)=>{
     console.log('addPlayer',name);
 
-      const aplayers = [...props.players];
+      const aplayers = [...players];
       //추가하는 로직
       //....
       aplayers.push(
@@ -70,7 +71,7 @@ function App(props) {
     console.log('handleRemovePlayer',id);
     //로직작성
     //id를 제외한 상태를 업데이트해야한다 .predicate : 판별한다 테스트 한다
-    const aplayers = props.players.filter((player)=>player.id !== id);
+    const aplayers = players.filter((player)=>player.id !== id);
     //short hand property : key, value 가 같으면 한쪽 생략
     // setPlayers(aplayers); //비동기로 실행된다.
 
@@ -79,7 +80,7 @@ function App(props) {
 
   const  handleChangeScore = (delta,e,id) =>{
     console.log('handleChangeScore',delta,id);
-      const newPlayers = [ ...props.players];
+      const newPlayers = [ ...players];
     newPlayers.forEach(player =>{
         if(player.id === id){
           player.score +=delta;
@@ -88,14 +89,14 @@ function App(props) {
     // setPlayers(newPlayers);
   }
   const getHighScore = () =>{
-    const  maxObj = _.maxBy(props.players,'score');
+    const  maxObj = _.maxBy(players,'score');
     return maxObj.score ? maxObj.score : null;
   }
   return (
       <div className="scoreboard">
-        <Header title="Scoreboard" players={props.players}></Header>
+        <Header title="Scoreboard" players={players}></Header>
         {
-          props.players.map((player) => {
+          players.map((player) => {
             return (
               //반복문에선 키를 넣어야 한다
               <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} changeScore ={handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={handleRemovePlayer} ></CustomPlayer>
