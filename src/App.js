@@ -5,6 +5,7 @@ import {Header} from "./components/Header";
 import AddPlayerForm from "./components/AddPlayerForm";
 import CustomPlayer from "./components/CustomPlayer";
 import _ from 'lodash';
+import {connect, Provider} from "react-redux";
 
 // const players = [
 //   {name: 'LDK',score :0, id: 1},
@@ -50,22 +51,17 @@ let maxId =4;
 
 
 function App(props) {
-  const [players,setPlayers] = useState([
-    {name: 'LDK', score: 30, id: 1},
-    {name: 'HONG', score: 40, id: 2},
-    {name: 'KIM', score: 50, id: 3},
-    {name: 'PARK', score: 60, id: 4},
-  ]);
+
   const handleAddPlayer =(name)=>{
     console.log('addPlayer',name);
 
-      const aplayers = [...players];
+      const aplayers = [...props.players];
       //추가하는 로직
       //....
       aplayers.push(
         {name:name,score:0,id:++maxId}
       )
-    setPlayers(aplayers);
+    // setPlayers(aplayers);
 
 
 
@@ -74,48 +70,56 @@ function App(props) {
     console.log('handleRemovePlayer',id);
     //로직작성
     //id를 제외한 상태를 업데이트해야한다 .predicate : 판별한다 테스트 한다
-    const aplayers = players.filter((player)=>player.id !== id);
+    const aplayers = props.players.filter((player)=>player.id !== id);
     //short hand property : key, value 가 같으면 한쪽 생략
-    setPlayers(aplayers); //비동기로 실행된다.
+    // setPlayers(aplayers); //비동기로 실행된다.
 
     console.log(aplayers);
   }
 
   const  handleChangeScore = (delta,e,id) =>{
     console.log('handleChangeScore',delta,id);
-      const newPlayers = [ ...players];
+      const newPlayers = [ ...props.players];
     newPlayers.forEach(player =>{
         if(player.id === id){
           player.score +=delta;
         }
       })
-    setPlayers(newPlayers);
+    // setPlayers(newPlayers);
   }
   const getHighScore = () =>{
-    const  maxObj = _.maxBy(players,'score');
+    const  maxObj = _.maxBy(props.players,'score');
     return maxObj.score ? maxObj.score : null;
   }
   return (
-    <div className="scoreboard">
-      <Header title="Scoreboard" players={players}></Header>
-      {
-        players.map((player) => {
-          return (
-            //반복문에선 키를 넣어야 한다
-            <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} changeScore ={handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={handleRemovePlayer} ></CustomPlayer>
-          )
-        })
-      }
-      <AddPlayerForm addPlayer={handleAddPlayer}/>
-    </div>
+      <div className="scoreboard">
+        <Header title="Scoreboard" players={props.players}></Header>
+        {
+          props.players.map((player) => {
+            return (
+              //반복문에선 키를 넣어야 한다
+              <CustomPlayer isHighScore={player.score === getHighScore()} name={player.name} changeScore ={handleChangeScore}  score={player.score} key ={player.id} id={player.id} removePlayer={handleRemovePlayer} ></CustomPlayer>
+            )
+          })
+        }
+        <AddPlayerForm addPlayer={handleAddPlayer}/>
+      </div>
   );
 }
 
 
+//구독
+//store의 state를 props로 매핑
+const mapStateToProps = (state) => ({
+  //왼쪽은 props, 오른쪽은 store state
+  players : state.player.players,
+});
 
 
+export default connect(mapStateToProps)(App);
+// export default App;
 
-export default App;
+
 // class App extends React.Component{
 //   state ={
 //     players :[
